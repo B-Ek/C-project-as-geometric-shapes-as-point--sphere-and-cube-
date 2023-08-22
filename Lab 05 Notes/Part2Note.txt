@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+#define MAX_SHAPES 50
+#define PI 3.141593
+
+/* type definitions come here*/
+
+
+/* function prototypes*/
+int scanShape(FILE *filep, shape_t *objp);
+int loadShapes(shape_t shapes[]);
+void printShape(const shape_t *objp);
+int hasVolumeGreaterThan(const shape_t *objp, double minVol);
+
+int main()
+{
+    shape_t shapes[MAX_SHAPES];
+    int numOfShapes = loadShapes(shapes);
+
+    printf("\nShapes:\n");
+    for (int i = 0; i < numOfShapes; i++)
+        printShape(&shapes[i]);
+
+    double minVol;
+    printf("\nEnter minimum volume: ");
+    scanf("%lf",&minVol);
+    printf("\nThe following shapes have are greater than %.2f:\n",minVol);
+    for (int i = 0; i < numOfShapes; i++)
+        if (hasVolumeGreaterThan(&shapes[i],minVol))
+            printShape(&shapes[i]);
+
+    return 0;
+}
